@@ -26,16 +26,80 @@ export class Preference {
   @Column({ nullable: true })
   dimensions: string; // Optional, concatenated dimensions (e.g., L=100 W=50)
 
-  @Column({ nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 3,
+    nullable: true,
+    transformer: {
+      // Convert empty strings to null, and strings like "1.2" to floats
+      to: (value: any) => {
+        if (value === '') return null; // Empty string becomes null
+        if (typeof value === 'string' && !isNaN(parseFloat(value))) {
+          return parseFloat(value); // Convert numeric strings to floats
+        }
+        return value; // Return other valid values as-is
+      },
+      from: (value: any) => value,
+    },
+  })
   widthMin: number;
 
-  @Column({ nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 3,
+    nullable: true,
+    transformer: {
+      // Convert empty strings to null, and strings like "1.2" to floats
+      to: (value: any) => {
+        if (value === '') return null; // Empty string becomes null
+        if (typeof value === 'string' && !isNaN(parseFloat(value))) {
+          return parseFloat(value); // Convert numeric strings to floats
+        }
+        return value; // Return other valid values as-is
+      },
+      from: (value: any) => value,
+    },
+  })
   widthMax: number;
 
-  @Column({ nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 3,
+    nullable: true,
+    transformer: {
+      // Convert empty strings to null, and strings like "1.2" to floats
+      to: (value: any) => {
+        if (value === '') return null; // Empty string becomes null
+        if (typeof value === 'string' && !isNaN(parseFloat(value))) {
+          return parseFloat(value); // Convert numeric strings to floats
+        }
+        return value; // Return other valid values as-is
+      },
+      from: (value: any) => value,
+    },
+  })
   thickenessMin: number;
 
-  @Column({ nullable: true })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 3,
+    nullable: true,
+    transformer: {
+      // Convert empty strings to null, and strings like "1.2" to floats
+      to: (value: any) => {
+        if (value === '') return null; // Empty string becomes null
+        if (typeof value === 'string' && !isNaN(parseFloat(value))) {
+          return parseFloat(value); // Convert numeric strings to floats
+        }
+        return value; // Return other valid values as-is
+      },
+      from: (value: any) => value,
+    },
+  })
   thickenessMax: number;
 
   @CreateDateColumn()

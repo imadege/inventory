@@ -17,7 +17,7 @@ const MaterialsPage: React.FC = () => {
   useEffect(() => {
     // Fetch materials
     axios
-      .get('/api/nventory', { params: { page, limit: rowsPerPage } })
+      .get('/api/inventory', { params: { page, limit: rowsPerPage } })
       .then((response) => {
         const materials = response.data.data;
         const processedData = materials.map((item: any) => {

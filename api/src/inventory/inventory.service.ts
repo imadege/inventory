@@ -60,6 +60,14 @@ export class InventoryService {
     return this.inventoryRepository.save(inventory);
   }
 
+  getFloatValue(value: any): number | null {
+    if (value === '') return null; // Empty string becomes null
+    if (typeof value === 'string' && !isNaN(parseFloat(value))) {
+      return parseFloat(value); // Convert numeric strings to floats
+    }
+    return null; // Return other valid values
+  }
+
   // Update an inventory item
   async update(id: string, data: Partial<Inventory>): Promise<Inventory> {
     await this.inventoryRepository.update(id, data);
@@ -74,27 +82,31 @@ export class InventoryService {
   async processInventoryCsv(data: any[]): Promise<void> {
     const inventories = data.map((row) => {
       const inventory = new Inventory();
-      inventory.productNumber = row.productNumber;
-      inventory.material = row.material;
-      inventory.finish = row.finish;
-      inventory.form = row.form;
-      inventory.choice = row.choice;
-      inventory.grade = row.grade;
-      inventory.surface = row.surface;
-      inventory.finish = row.finish;
+      inventory.productNumber = row.productNumber || '';
+      inventory.material = row.material || '';
+      inventory.finish = row.finish || '';
+      inventory.form = row.form || '';
+      inventory.choice = row.choice || '';
+      inventory.grade = row.grade || '';
+      inventory.surface = row.surface || '';
+      inventory.finish = row.finish || '';
       inventory.length = row.length ? parseFloat(row.length) : null;
       inventory.width = row.width ? parseFloat(row.width) : null;
       inventory.height = row.height ? parseFloat(row.height) : null;
-      inventory.quantity = row.quantity ? parseInt(row.quantity, 10) : 0;
-      inventory.weight = row.weight ? parseFloat(row.weight) : 0;
-      inventory.location = row.location;
+      inventory.quantity = row.quantity ? parseFloat(row.quantity) : 0.0;
+      inventory.weight = row.weight ? parseFloat(row.weight) : 0.0;
+      inventory.location = row.location || '';
       inventory.thickness = row.thickness ? parseFloat(row.thickness) : null;
-      inventory.certificates = row.certificates;
+      inventory.certificates = row.certificates || '';
       inventory.wallThickness = row.wallThickness
         ? parseFloat(row.wallThickness)
         : null;
-      inventory.webThickness = row.webThickness;
-      inventory.flangeThickness = row.flangeThickness;
+      inventory.webThickness = row.webThickness
+        ? parseFloat(row.webThickness)
+        : null;
+      inventory.flangeThickness = row.flangeThickness
+        ? parseFloat(row.flangeThickness)
+        : null;
 
       return inventory;
     });

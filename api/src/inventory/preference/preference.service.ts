@@ -47,10 +47,10 @@ export class PreferenceService {
       preference.form = row.form;
       preference.choice = row.choice;
       preference.grade = row.grade;
-      preference.widthMin = row.widthMin;
-      preference.widthMax = row.widthMax;
-      preference.thickenessMin = row.thickenessMin;
-      preference.thickenessMax = row.thickenessMax;
+      preference.widthMin = parseFloat(row.widthMin) || null;
+      preference.widthMax = parseFloat(row.widthMax) || null;
+      preference.thickenessMin = parseFloat(row.thickenessMin) || null;
+      preference.thickenessMax = parseFloat(row.thickenessMax) || null;
       return preference;
     });
     console.log(preferences.length);

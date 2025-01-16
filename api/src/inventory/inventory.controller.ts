@@ -117,7 +117,72 @@ export class InventoryController {
         .on('data', (data) => results.push(data))
         .on('end', async () => {
           try {
-            await this.inventoryService.processInventoryCsv(results);
+            const data = [];
+            for (let i = 0; i < results.length; i++) {
+              if (results[i].length) {
+                results[i].length = parseFloat(results[i].length);
+              }
+              if (results[i].width) {
+                results[i].width = parseFloat(results[i].width);
+              }
+              if (results[i].height) {
+                results[i].height = parseFloat(results[i].height);
+              }
+              if (results[i].quantity) {
+                results[i].quantity = parseFloat(results[i].quantity);
+              }
+              if (results[i].weight) {
+                results[i].weight = parseFloat(results[i].weight);
+              }
+              if (results[i].thickness) {
+                results[i].thickness = parseFloat(results[i].thickness);
+              }
+              if (results[i].wallThickness) {
+                results[i].wallThickness = parseFloat(results[i].wallThickness);
+              }
+              if (results[i].webThickness) {
+                results[i].webThickness = parseFloat(results[i].webThickness);
+              }
+              if (results[i].flangeThickness) {
+                results[i].flangeThickness = parseFloat(
+                  results[i].flangeThickness,
+                );
+              }
+
+              if (results[i].productNumber) {
+                results[i].productNumber = results[i].productNumber;
+              }
+
+              if (results[i].material) {
+                results[i].material = results[i].material;
+              }
+
+              if (results[i].finish) {
+                results[i].finish = results[i].finish;
+              }
+              if (results[i].form) {
+                results[i].form = results[i].form;
+              }
+              if (results[i].choice) {
+                results[i].choice = results[i].choice;
+              }
+              if (results[i].grade) {
+                results[i].grade = results[i].grade;
+              }
+              if (results[i].surface) {
+                results[i].surface = results[i].surface;
+              }
+              if (results[i].certificates) {
+                results[i].certificates = results[i].certificates;
+              }
+              //data.push(results[i]);
+              console.log(results[i]);
+              console.log('-----------------');
+              await this.inventoryService.create(results[i]);
+
+            }
+
+            //await this.inventoryService.processInventoryCsv(results);
             resolve({ message: 'File processed successfully' });
           } catch (error) {
             console.log(error);
