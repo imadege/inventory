@@ -9,7 +9,7 @@ const PreferencesPage: React.FC = () => {
   useEffect(() => {
     // Fetch preferences
     axios
-      .get('http://localhost:3000/preferences')
+      .get('/api/preferences')
       .then((response) => setPreferences(response.data))
       .catch((error) => console.error('Error fetching preferences:', error));
   }, []);
